@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pira.gnet"
+    namespace = "com.pira.gnetp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.pira.gnet"
+        applicationId = "com.pira.gnetp"
         minSdk = 23
         targetSdk = 36
         versionCode = 1
