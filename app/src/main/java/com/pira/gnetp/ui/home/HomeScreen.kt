@@ -30,6 +30,7 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -261,12 +262,15 @@ fun HomeScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp)
+                        .height(48.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White
+                    )
                 ) {
                     Text(
                         text = if (uiState.isProxyActive) "Stop Proxy" else "Start Proxy",
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        color = Color.White
                     )
                 }
                 
@@ -356,13 +360,17 @@ fun HomeScreen(
                     
                     Button(
                         onClick = { showIpSelector = false },
-                        modifier = Modifier
+                        modifier = Modifier,
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.White
+                        )
                     ) {
                         Text(
                             text = "Close",
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = Color.White
                         )
                     }
+
                 }
                 
                 Spacer(modifier = Modifier.height(16.dp))
