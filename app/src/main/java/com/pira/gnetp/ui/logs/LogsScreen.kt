@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
@@ -60,10 +62,13 @@ fun LogsScreen(
         }
     }
     
+    val scrollState = rememberScrollState()
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(scrollState)
     ) {
         // Header
         Row(
@@ -108,14 +113,6 @@ fun LogsScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(
-                text = if (isProxyActive) "Proxy is ACTIVE" else "Proxy is INACTIVE",
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (isProxyActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
-            )
         }
         
         Column(
