@@ -87,9 +87,7 @@ jobs:
         run: |
           mkdir -p release
           cp app/build/outputs/apk/release/app-universal-release.apk release/GNet-universal.apk
-          cp app/build/outputs/apk/release/app-arm64-v8a-release.apk release/GNet-arm64-v8a.apk
-          cp app/build/outputs/apk/release/app-armeabi-v7a-release.apk release/GNet-armeabi-v7a.apk
-
+          
       - name: Get tag name
         id: get_tag
         run: |
@@ -111,21 +109,8 @@ jobs:
           prerelease: false
           files: |
             release/GNet-universal.apk
-            release/GNet-arm64-v8a.apk
-            release/GNet-armeabi-v7a.apk
           body: |
             ## GNet Release ${{ env.TAG_NAME }}
             
             ### Download Options
             - [Universal APK (all architectures)](https://github.com/${{ github.repository }}/releases/download/${{ env.TAG_NAME }}/GNet-universal.apk) - Larger file size, compatible with all devices
-            - [ARM64-v8a APK](https://github.com/${{ github.repository }}/releases/download/${{ env.TAG_NAME }}/GNet-arm64-v8a.apk) - Optimized for 64-bit ARM devices
-            - [ARMv7a APK](https://github.com/${{ github.repository }}/releases/download/${{ env.TAG_NAME }}/GNet-armeabi-v7a.apk) - Optimized for 32-bit ARM devices
-            
-            ### Installation
-            1. Download the appropriate APK file for your device
-            2. Enable "Install from unknown sources" in your device settings
-            3. Open and install the APK
-            4. Launch GNet and enjoy your movies!
-            
-            ### Changelog
-            For a detailed changelog, please check the [commit history](https://github.com/${{ github.repository }}/commits/${{ env.TAG_NAME }}).
