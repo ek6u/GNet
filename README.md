@@ -1,7 +1,7 @@
 # GNet Proxy
 
 <div align="center">
-  <img src="app/src/main/res/drawable/logo.png" alt="GNet Proxy Logo" width="40%">
+  <img src="app/src/main/res/drawable/logo.png" alt="GNet Proxy Logo" width="128" height="128">
   
   <h1>GNet Proxy</h1>
   
