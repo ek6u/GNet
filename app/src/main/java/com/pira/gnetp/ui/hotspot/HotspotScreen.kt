@@ -26,9 +26,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.pira.gnetp.R
 import com.pira.gnetp.ui.home.HomeUiState
 
 @Composable
@@ -49,7 +51,7 @@ fun HotspotScreen(
     ) {
         // Header
         Text(
-            text = "Hotspot Info",
+            text = stringResource(R.string.hotspot_info),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
@@ -61,20 +63,27 @@ fun HotspotScreen(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
+            // Store string resources in variables to use in non-composable contexts
+            val ipAddressLabel = stringResource(R.string.ip_address)
+            val noIpSelectedText = stringResource(R.string.no_ip_selected)
+            val ipCopiedClipboardText = stringResource(R.string.ip_copied_clipboard)
+            val portLabel = stringResource(R.string.port)
+            val portCopiedClipboardText = stringResource(R.string.port_copied_clipboard)
+            
             Text(
-                text = "Connection Details",
+                text = stringResource(R.string.connection_details),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             
             ConnectionInfoRow(
-                label = "IP Address:",
-                value = if (uiState.selectedIpAddress.isNotEmpty()) uiState.selectedIpAddress else "No IP selected",
+                label = ipAddressLabel,
+                value = if (uiState.selectedIpAddress.isNotEmpty()) uiState.selectedIpAddress else noIpSelectedText,
                 onCopy = { 
                     if (uiState.selectedIpAddress.isNotEmpty()) {
-                        copyToClipboard(context, "IP Address", uiState.selectedIpAddress)
-                        Toast.makeText(context, "IP Address copied to clipboard", Toast.LENGTH_SHORT).show()
+                        copyToClipboard(context, ipAddressLabel, uiState.selectedIpAddress)
+                        Toast.makeText(context, ipCopiedClipboardText, Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -82,18 +91,18 @@ fun HotspotScreen(
             Spacer(modifier = Modifier.height(12.dp))
             
             ConnectionInfoRow(
-                label = "Port:",
+                label = portLabel,
                 value = uiState.port.toString(),
                 onCopy = { 
-                    copyToClipboard(context, "Port", uiState.port.toString())
-                    Toast.makeText(context, "Port copied to clipboard", Toast.LENGTH_SHORT).show()
+                    copyToClipboard(context, portLabel, uiState.port.toString())
+                    Toast.makeText(context, portCopiedClipboardText, Toast.LENGTH_SHORT).show()
                 }
             )
             
             Spacer(modifier = Modifier.height(12.dp))
             
             Text(
-                text = "Available IPs:",
+                text = stringResource(R.string.available_ips),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -103,7 +112,7 @@ fun HotspotScreen(
             // Show available IPs
             if (uiState.availableIPs.isEmpty()) {
                 Text(
-                    text = "No available IPs detected",
+                    text = stringResource(R.string.no_available_ips),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -123,26 +132,26 @@ fun HotspotScreen(
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Instructions",
+                text = stringResource(R.string.instructions),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             
             Text(
-                text = "1. Ensure your device's hotspot is enabled",
+                text = stringResource(R.string.instruction_step1),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             
             Text(
-                text = "2. Connect another device to this hotspot",
+                text = stringResource(R.string.instruction_step2),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             
             Text(
-                text = "3. Configure the device to use the proxy settings above",
+                text = stringResource(R.string.instruction_step3),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -188,7 +197,7 @@ fun ConnectionInfoRow(
             ) {
                 Icon(
                     imageVector = Icons.Default.ContentCopy,
-                    contentDescription = "Copy"
+                    contentDescription = stringResource(R.string.copy)
                 )
             }
         }

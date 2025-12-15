@@ -6,7 +6,6 @@ object Logger {
     private const val TAG = "GNet"
     
     fun d(tag: String, message: String) {
-        // Always log debug messages in debug builds
         Log.d("$TAG:$tag", message)
     }
     

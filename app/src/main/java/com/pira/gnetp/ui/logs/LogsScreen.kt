@@ -31,9 +31,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.pira.gnetp.R
 import com.pira.gnetp.data.LogRepository
 import com.pira.gnetp.ui.home.HomeViewModel
 import kotlinx.coroutines.delay
@@ -70,6 +72,14 @@ fun LogsScreen(
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
+        // Store string resources in variables to use in non-composable contexts
+        val logsClearedMessage = stringResource(R.string.logs_cleared)
+        val deleteLogsDescription = stringResource(R.string.delete_logs)
+        val noLogsText = stringResource(R.string.no_logs)
+        val startProxyToSeeLogsText = stringResource(R.string.start_proxy_to_see_logs)
+        val realTimeLogsText = stringResource(R.string.real_time_logs)
+        val proxyLogsText = stringResource(R.string.proxy_logs)
+        
         // Header
         Row(
             modifier = Modifier
@@ -79,7 +89,7 @@ fun LogsScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Proxy Logs",
+                text = proxyLogsText,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -88,11 +98,11 @@ fun LogsScreen(
             
             IconButton(onClick = { 
                 logRepository.clearLogs()
-                Toast.makeText(context, "Logs cleared", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, logsClearedMessage, Toast.LENGTH_SHORT).show()
             }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete logs"
+                    contentDescription = deleteLogsDescription
                 )
             }
         }
@@ -108,7 +118,7 @@ fun LogsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Real-time Logs",
+                    text = realTimeLogsText,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
@@ -129,12 +139,12 @@ fun LogsScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "No logs available",
+                        text = noLogsText,
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Start the proxy to see logs",
+                        text = startProxyToSeeLogsText,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -160,7 +170,7 @@ fun LogsScreen(
 
 @Composable
 fun LogItem(log: com.pira.gnetp.data.LogEntry) {
-    val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    val dateFormat = SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
     val time = dateFormat.format(Date(log.timestamp))
     
     Row(

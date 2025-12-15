@@ -1,9 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Strings -->
     <string name="app_name">GNet Proxy</string>
     <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="hotspot">Hotspot</string>
     <string name="logs">Logs</string>
+    <string name="about">About</string>
+    <string name="back">Back</string>
     <string name="start_proxy">Start Proxy</string>
     <string name="stop_proxy">Stop Proxy</string>
     <string name="vpn_status">VPN Status</string>
@@ -20,4 +24,63 @@
     <string name="copy">Copy</string>
     <string name="real_time_logs">Real-time Logs</string>
     <string name="no_logs">No logs available</string>
+    
+    <!-- Home Screen Strings -->
+    <string name="error">Error</string>
+    <string name="status">Status</string>
+    <string name="vpn_connection">VPN Connection:</string>
+    <string name="hotspot_status">Hotspot:</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="select_ip_address">Select IP Address</string>
+    <string name="tap_to_select_ip">Tap to select an IP</string>
+    <string name="controls">Controls</string>
+    
+    <!-- Hotspot Screen Strings -->
+    <string name="hotspot_info">Hotspot Info</string>
+    <string name="connection_details">Connection Details</string>
+    <string name="no_ip_selected">No IP selected</string>
+    <string name="ip_copied_clipboard">IP Address copied to clipboard</string>
+    <string name="port_copied_clipboard">Port copied to clipboard</string>
+    <string name="available_ips">Available IPs:</string>
+    <string name="no_available_ips">No available IPs detected</string>
+    <string name="instructions">Instructions</string>
+    <string name="instruction_step1">1. Ensure your device\'s hotspot is enabled</string>
+    <string name="instruction_step2">2. Connect another device to this hotspot</string>
+    <string name="instruction_step3">3. Configure the device to use the proxy settings above</string>
+    
+    <!-- Logs Screen Strings -->
+    <string name="proxy_logs">Proxy Logs</string>
+    <string name="logs_cleared">Logs cleared</string>
+    <string name="delete_logs">Delete logs</string>
+    <string name="start_proxy_to_see_logs">Start the proxy to see logs</string>
+    <string name="time_format">HH:mm:ss</string>
+    
+    <!-- Settings Screen Strings -->
+    <string name="theme_settings">Theme Settings</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <string name="theme_mode">Theme Mode</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="system_default_theme">System Default</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="default_label">Default</string>
+    <string name="proxy_settings">Proxy Settings</string>
+    <string name="http_proxy">HTTP Proxy</string>
+    <string name="socks5_proxy">SOCKS5 Proxy</string>
+    <string name="port_configuration">Port Configuration</string>
+    <string name="port_number">Port Number</string>
+    <string name="settings_saved">Settings saved successfully</string>
+    <string name="invalid_port">Please enter a valid port number (1024-65535)</string>
+    <string name="save_settings">Save Settings</string>
+    
+    <!-- Restart Dialog Strings -->
+    <string name="restart_required">Restart Required</string>
+    <string name="restart_message">Please restart the app for the changes to take effect.</string>
+    <string name="ok">OK</string>
+    
+    <!-- Notification Strings -->
+    <string name="proxy_server_channel_name">Proxy Server Service</string>
+    <string name="proxy_server_running">Proxy server is running</string>
 </resources>

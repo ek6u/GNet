@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 
 data class ThemeSettings(
-    val themeMode: ThemeMode = ThemeMode.SYSTEM,
+    val themeMode: ThemeMode = ThemeMode.LIGHT,
     val primaryColor: Color = defaultPrimaryColor
 )
 
@@ -15,7 +15,7 @@ enum class ThemeMode {
 }
 
 // Default colors
-val defaultPrimaryColor = Color(0xFF6650a4) // Purple40
+val defaultPrimaryColor = Color(0xFF3B5BA9) // Blue
 
 // Predefined color options
 val colorOptions = listOf(

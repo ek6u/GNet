@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -47,6 +48,8 @@ import com.pira.gnetp.ui.theme.ThemeManager
 import com.pira.gnetp.ui.theme.ThemeSettings
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import com.pira.gnetp.R
+import com.pira.gnetp.ui.about.AboutScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -81,18 +84,11 @@ fun MainApp(logRepository: LogRepository) {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Scaffold(
-                bottomBar = {
-                    BottomNavigationBar(navController)
-                }
-            ) { innerPadding ->
-                MainNavHost(
-                    navController = navController,
-                    logRepository = logRepository,
-                    modifier = Modifier.padding(innerPadding),
-                    onThemeSettingsChanged = ::updateThemeSettings
-                )
-            }
+            MainNavHost(
+                navController = navController,
+                logRepository = logRepository,
+                onThemeSettingsChanged = ::updateThemeSettings
+            )
         }
     }
 }
@@ -101,50 +97,67 @@ fun MainApp(logRepository: LogRepository) {
 fun MainNavHost(
     navController: NavHostController,
     logRepository: LogRepository,
-    modifier: Modifier = Modifier,
     onThemeSettingsChanged: (ThemeSettings) -> Unit = {}
 ) {
-    // Create a single instance of the HomeViewModel to be shared between HomeScreen and HotspotScreen
     val homeViewModel = hiltViewModel<HomeViewModel>()
     val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val isAboutScreen = currentDestination?.route == Screen.About.route
     
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Home.route,
-        modifier = modifier
-    ) {
-        composable(Screen.Home.route) {
-            HomeScreen(
-                uiState = homeUiState,
-                onStartProxy = { homeViewModel.startProxy() },
-                onStopProxy = { homeViewModel.stopProxy() },
-                onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
-                onNavigateToHotspot = { navController.navigate(Screen.Hotspot.route) },
-                onNavigateToLogs = { navController.navigate(Screen.Logs.route) },
-                onVpnPermissionRequest = { },
-                onSelectIpAddress = { ip -> homeViewModel.selectIpAddress(ip) }
-            )
+    Scaffold(
+        topBar = {},
+        bottomBar = {
+            if (!isAboutScreen) {
+                BottomNavigationBar(navController)
+            }
         }
-        
-        composable(Screen.Settings.route) {
-            SettingsScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onThemeSettingsChanged = onThemeSettingsChanged
-            )
-        }
-        
-        composable(Screen.Hotspot.route) {
-            HotspotScreen(
-                uiState = homeUiState,
-                onNavigateBack = { navController.popBackStack() }
-            )
-        }
-        
-        composable(Screen.Logs.route) {
-            LogsScreen(
-                onNavigateBack = { navController.popBackStack() },
-                logRepository = logRepository
-            )
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Home.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(Screen.Home.route) {
+                HomeScreen(
+                    uiState = homeUiState,
+                    onStartProxy = { homeViewModel.startProxy() },
+                    onStopProxy = { homeViewModel.stopProxy() },
+                    onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
+                    onNavigateToHotspot = { navController.navigate(Screen.Hotspot.route) },
+                    onNavigateToLogs = { navController.navigate(Screen.Logs.route) },
+                    onVpnPermissionRequest = { },
+                    onSelectIpAddress = { ip -> homeViewModel.selectIpAddress(ip) }
+                )
+            }
+            
+            composable(Screen.Settings.route) {
+                SettingsScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    onNavigateToAbout = { navController.navigate(Screen.About.route) },
+                    onThemeSettingsChanged = onThemeSettingsChanged
+                )
+            }
+            
+            composable(Screen.Hotspot.route) {
+                HotspotScreen(
+                    uiState = homeUiState,
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
+            
+            composable(Screen.Logs.route) {
+                LogsScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    logRepository = logRepository
+                )
+            }
+            
+            composable(Screen.About.route) {
+                AboutScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
         }
     }
 }
@@ -171,6 +184,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                             Screen.Settings -> Icons.Default.Settings
                             Screen.Hotspot -> Icons.Default.Info
                             Screen.Logs -> Icons.AutoMirrored.Filled.List
+                            Screen.About -> Icons.Default.Info
                         },
                         contentDescription = null
                     )
@@ -178,7 +192,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 label = { Text(getScreenTitle(screen)) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
-                    // Special handling for Home screen to ensure proper navigation
                     if (screen == Screen.Home) {
                         navController.navigate(screen.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
@@ -201,12 +214,15 @@ fun BottomNavigationBar(navController: NavHostController) {
     }
 }
 
+@Composable
 fun getScreenTitle(screen: Screen): String {
     return when (screen) {
-        Screen.Home -> "Home"
-        Screen.Settings -> "Settings"
-        Screen.Hotspot -> "Hotspot"
-        Screen.Logs -> "Logs"
+        Screen.Home -> stringResource(R.string.home)
+        Screen.Settings -> stringResource(R.string.settings)
+        Screen.Hotspot -> stringResource(R.string.hotspot)
+        Screen.Logs -> stringResource(R.string.logs)
+        Screen.About -> stringResource(R.string.about)
+        else -> ""
     }
 }
 

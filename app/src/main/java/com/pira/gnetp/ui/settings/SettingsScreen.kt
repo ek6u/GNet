@@ -24,15 +24,19 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.FormatColorFill
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,10 +47,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.pira.gnetp.R
 import com.pira.gnetp.data.ProxyType
 import com.pira.gnetp.ui.theme.ThemeManager
 import com.pira.gnetp.ui.theme.ThemeMode
@@ -58,6 +64,7 @@ import com.pira.gnetp.utils.PreferenceManager
 @Composable
 fun SettingsScreen(
     onNavigateBack: () -> Unit,
+    onNavigateToAbout: () -> Unit = {},
     onThemeSettingsChanged: (ThemeSettings) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -69,6 +76,9 @@ fun SettingsScreen(
     val savedConfig = remember { preferenceManager.loadProxySettings() }
     var proxyType by remember { mutableStateOf(savedConfig.proxyType) }
     var port by remember { mutableStateOf(savedConfig.port.toString()) }
+    
+    // Show restart dialog state
+    var showRestartDialog by remember { mutableStateOf(false) }
     
     // Update theme settings and notify parent
     fun updateThemeSettings(newSettings: ThemeSettings) {
@@ -86,14 +96,31 @@ fun SettingsScreen(
             .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Store string resources in variables to use in non-composable contexts
+        val settingsSavedMessage = stringResource(R.string.settings_saved)
+        val invalidPortMessage = stringResource(R.string.invalid_port)
+        
         // Header
-        Text(
-            text = "Settings",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
+        Row(
             modifier = Modifier
-                .padding(bottom = 24.dp)
-        )
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.settings),
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
+            
+            IconButton(onClick = onNavigateToAbout) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = stringResource(R.string.about)
+                )
+            }
+        }
         
         // Theme Settings Card
         var isThemeExpanded by remember { mutableStateOf(false) }
@@ -119,7 +146,7 @@ fun SettingsScreen(
                         modifier = Modifier.size(24.dp)
                     )
                     Text(
-                        text = "Theme Settings",
+                        text = stringResource(R.string.theme_settings),
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier
                             .padding(start = 8.dp)
@@ -127,7 +154,7 @@ fun SettingsScreen(
                     )
                     Icon(
                         imageVector = if (isThemeExpanded) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown,
-                        contentDescription = if (isThemeExpanded) "Collapse" else "Expand",
+                        contentDescription = if (isThemeExpanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -136,14 +163,14 @@ fun SettingsScreen(
                     Column(modifier = Modifier.fillMaxWidth()) {
                         // Theme Mode Section
                         Text(
-                            text = "Theme Mode",
+                            text = stringResource(R.string.theme_mode),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
                         
                         ThemeModeOption(
                             mode = ThemeMode.LIGHT,
-                            label = "Light",
+                            label = stringResource(R.string.light_theme),
                             isSelected = themeSettings.themeMode == ThemeMode.LIGHT,
                             onSelect = { mode ->
                                 val newSettings = themeSettings.copy(themeMode = mode)
@@ -153,7 +180,7 @@ fun SettingsScreen(
                         
                         ThemeModeOption(
                             mode = ThemeMode.DARK,
-                            label = "Dark",
+                            label = stringResource(R.string.dark_theme),
                             isSelected = themeSettings.themeMode == ThemeMode.DARK,
                             onSelect = { mode ->
                                 val newSettings = themeSettings.copy(themeMode = mode)
@@ -163,7 +190,7 @@ fun SettingsScreen(
                         
                         ThemeModeOption(
                             mode = ThemeMode.SYSTEM,
-                            label = "System Default",
+                            label = stringResource(R.string.system_default_theme),
                             isSelected = themeSettings.themeMode == ThemeMode.SYSTEM,
                             onSelect = { mode ->
                                 val newSettings = themeSettings.copy(themeMode = mode)
@@ -175,7 +202,7 @@ fun SettingsScreen(
                         
                         // Primary Color Section
                         Text(
-                            text = "Primary Color",
+                            text = stringResource(R.string.primary_color),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(bottom = 12.dp)
                         )
@@ -223,7 +250,7 @@ fun SettingsScreen(
                                         val newSettings = themeSettings.copy(primaryColor = selectedColor)
                                         updateThemeSettings(newSettings)
                                     },
-                                    label = "Default"
+                                    label = stringResource(R.string.default_label)
                                 )
                             }
                         }
@@ -243,7 +270,7 @@ fun SettingsScreen(
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "Proxy Settings",
+                    text = stringResource(R.string.proxy_settings),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 16.dp)
@@ -255,7 +282,7 @@ fun SettingsScreen(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = "Proxy Type",
+                        text = stringResource(R.string.proxy_type),
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
@@ -266,13 +293,13 @@ fun SettingsScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         ProxyTypeOption(
-                            text = "HTTP Proxy",
+                            text = stringResource(R.string.http_proxy),
                             selected = proxyType == ProxyType.HTTP,
                             onClick = { proxyType = ProxyType.HTTP }
                         )
                         
                         ProxyTypeOption(
-                            text = "SOCKS5 Proxy",
+                            text = stringResource(R.string.socks5_proxy),
                             selected = proxyType == ProxyType.SOCKS5,
                             onClick = { proxyType = ProxyType.SOCKS5 }
                         )
@@ -285,7 +312,7 @@ fun SettingsScreen(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = "Port Configuration",
+                        text = stringResource(R.string.port_configuration),
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
@@ -298,7 +325,7 @@ fun SettingsScreen(
                                 port = newValue
                             }
                         },
-                        label = { Text("Port Number") },
+                        label = { Text(stringResource(R.string.port_number)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -324,9 +351,12 @@ fun SettingsScreen(
                                 isActive = false
                             )
                             preferenceManager.saveProxySettings(config)
-                            Toast.makeText(context, "Settings saved successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, settingsSavedMessage, Toast.LENGTH_SHORT).show()
+                            
+                            // Show restart dialog
+                            showRestartDialog = true
                         } else {
-                            Toast.makeText(context, "Please enter a valid port number (1024-65535)", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, invalidPortMessage, Toast.LENGTH_SHORT).show()
                         }
                     },
                     modifier = Modifier
@@ -337,13 +367,39 @@ fun SettingsScreen(
                     )
                 ) {
                     Text(
-                        text = "Save Settings",
+                        text = stringResource(R.string.save_settings),
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.White
                     )
                 }
             }
         }
+    }
+    
+    // Restart dialog
+    if (showRestartDialog) {
+        val restartRequiredText = stringResource(R.string.restart_required)
+        val restartMessageText = stringResource(R.string.restart_message)
+        val okText = stringResource(R.string.ok)
+        
+        AlertDialog(
+            onDismissRequest = { showRestartDialog = false },
+            title = {
+                Text(text = restartRequiredText)
+            },
+            text = {
+                Text(restartMessageText)
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showRestartDialog = false
+                    }
+                ) {
+                    Text(okText)
+                }
+            }
+        )
     }
 }
 

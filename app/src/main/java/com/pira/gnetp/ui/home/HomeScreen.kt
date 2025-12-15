@@ -47,8 +47,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pira.gnetp.R
 import com.pira.gnetp.data.ProxyType
 
 @Composable
@@ -75,7 +77,7 @@ fun HomeScreen(
     ) {
         // Header
         Text(
-            text = "GNet Proxy",
+            text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
@@ -99,7 +101,7 @@ fun HomeScreen(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "Error",
+                        text = stringResource(R.string.error),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onErrorContainer
@@ -131,7 +133,7 @@ fun HomeScreen(
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Status",
+                    text = stringResource(R.string.status),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 16.dp)
@@ -142,12 +144,12 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "VPN Connection:",
+                        text = stringResource(R.string.vpn_connection),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     
                     Text(
-                        text = if (uiState.isVpnConnected) "Connected" else "Disconnected",
+                        text = if (uiState.isVpnConnected) stringResource(R.string.connected) else stringResource(R.string.disconnected),
                         style = MaterialTheme.typography.bodyLarge,
                         color = if (uiState.isVpnConnected) MaterialTheme.colorScheme.primary else Color.Red,
                         fontWeight = FontWeight.Medium
@@ -161,12 +163,12 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Proxy Status:",
+                        text = stringResource(R.string.proxy_status),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     
                     Text(
-                        text = if (uiState.isProxyActive) "Active" else "Inactive",
+                        text = if (uiState.isProxyActive) stringResource(R.string.active) else stringResource(R.string.inactive),
                         style = MaterialTheme.typography.bodyLarge,
                         color = if (uiState.isProxyActive) MaterialTheme.colorScheme.primary else Color.Red,
                         fontWeight = FontWeight.Medium
@@ -180,12 +182,12 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Hotspot:",
+                        text = stringResource(R.string.hotspot_status),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     
                     Text(
-                        text = if (uiState.isHotspotEnabled) "Enabled" else "Disabled",
+                        text = if (uiState.isHotspotEnabled) stringResource(R.string.enabled) else stringResource(R.string.disabled),
                         style = MaterialTheme.typography.bodyLarge,
                         color = if (uiState.isHotspotEnabled) MaterialTheme.colorScheme.primary else Color.Red,
                         fontWeight = FontWeight.Medium
@@ -213,14 +215,14 @@ fun HomeScreen(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "Select IP Address",
+                        text = stringResource(R.string.select_ip_address),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
                     
                     Text(
-                        text = uiState.selectedIpAddress.ifEmpty { "Tap to select an IP" },
+                        text = if (uiState.selectedIpAddress.isNotEmpty()) uiState.selectedIpAddress else stringResource(R.string.tap_to_select_ip),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -246,7 +248,7 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Controls",
+                    text = stringResource(R.string.controls),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 16.dp)
@@ -268,7 +270,7 @@ fun HomeScreen(
                     )
                 ) {
                     Text(
-                        text = if (uiState.isProxyActive) "Stop Proxy" else "Start Proxy",
+                        text = if (uiState.isProxyActive) stringResource(R.string.stop_proxy) else stringResource(R.string.start_proxy),
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.White
                     )
@@ -286,11 +288,11 @@ fun HomeScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = "Settings",
+                            contentDescription = stringResource(R.string.settings),
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.size(8.dp))
-                        Text("Settings")
+                        Text(stringResource(R.string.settings))
                     }
                     
                     Spacer(modifier = Modifier.size(8.dp))
@@ -301,11 +303,11 @@ fun HomeScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Info,
-                            contentDescription = "Hotspot",
+                            contentDescription = stringResource(R.string.hotspot),
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.size(8.dp))
-                        Text("Hotspot")
+                        Text(stringResource(R.string.hotspot))
                     }
                 }
                 
@@ -317,7 +319,7 @@ fun HomeScreen(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.List,
-                        contentDescription = "Logs",
+                        contentDescription = stringResource(R.string.logs),
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.size(8.dp))
@@ -353,7 +355,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Select IP Address",
+                        text = stringResource(R.string.select_ip_address),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
