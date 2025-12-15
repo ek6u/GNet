@@ -39,43 +39,8 @@ object NetworkUtils {
             Logger.e(TAG, "Error getting available IPs", ex)
         }
         
-        // Add hotspot IP as default if not already present
-        val hotspotIp = getHotspotIpAddress()
-        if (!ips.contains(hotspotIp)) {
-            ips.add(0, hotspotIp)
-        }
-        
         Logger.d(TAG, "Available IPs: $ips")
         return ips
-    }
-    
-    /**
-     * Get the IP address of the device's WiFi hotspot
-     */
-    fun getHotspotIpAddress(): String {
-        try {
-            val interfaces = Collections.list(NetworkInterface.getNetworkInterfaces())
-            for (intf in interfaces) {
-                if (!intf.name.contains("wlan", ignoreCase = true) && 
-                    !intf.name.contains("ap", ignoreCase = true)) continue
-                
-                val addresses = Collections.list(intf.inetAddresses)
-                for (addr in addresses) {
-                    if (addr is Inet4Address && !addr.isLoopbackAddress) {
-                        val ip = addr.hostAddress ?: continue
-                        // Hotspot IPs typically start with 192.168.x.x
-                        if (ip.startsWith("192.168.")) {
-                            Logger.d(TAG, "Found hotspot IP: $ip")
-                            return ip
-                        }
-                    }
-                }
-            }
-        } catch (ex: Exception) {
-            Logger.e(TAG, "Error getting hotspot IP address", ex)
-        }
-        Logger.d(TAG, "Using default hotspot IP: 192.168.43.1")
-        return "192.168.43.1" // Default fallback
     }
     
     /**
